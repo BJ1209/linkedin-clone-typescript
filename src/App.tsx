@@ -1,6 +1,13 @@
+import GlobalStyles from './App.style';
+
+import Login from './components/Login';
+
 function App() {
   return (
-    <div></div>
+    <div>
+      <GlobalStyles />
+      <Login />
+    </div>
   );
 }
 

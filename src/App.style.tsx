@@ -14,4 +14,7 @@ body{
 }
 `;
 
-export const AppContainer = styled.div``;
+export const AppContainer = styled.div`
+  background: #f3f2ef;
+  height: 100vh;
+`;

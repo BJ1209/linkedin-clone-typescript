@@ -1,13 +1,13 @@
-import GlobalStyles from './App.style';
+import { AppContainer, GlobalStyles } from './App.style';
 
 import Login from './components/Login';
 
 function App() {
   return (
-    <div>
+    <AppContainer>
       <GlobalStyles />
       <Login />
-    </div>
+    </AppContainer>
   );
 }
 

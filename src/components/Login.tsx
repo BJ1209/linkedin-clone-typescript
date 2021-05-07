@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import {
   Button,
   Container,
@@ -14,7 +14,7 @@ import {
   Title,
 } from '../styles/Login.style';
 
-const Login: React.FC = () => {
+const Login: FC = () => {
   return (
     <Container>
       <Nav>

@@ -1,6 +1,6 @@
-import { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 
-const GlobalStyles = createGlobalStyle`
+export const GlobalStyles = createGlobalStyle`
 *,*::after,*::before{
   margin: 0;
   padding: 0;
@@ -9,6 +9,9 @@ const GlobalStyles = createGlobalStyle`
 body,html{
 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+body{
+  overflow: hidden;
+}
 `;
 
-export default GlobalStyles;
+export const AppContainer = styled.div``;

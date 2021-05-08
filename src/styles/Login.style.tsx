@@ -3,12 +3,7 @@ import { Link } from 'react-router-dom';
 import { ReactComponent as Logo } from '../assets/logo/login-logo.svg';
 import { ReactComponent as GoogleLogo } from '../assets/logo/google.svg';
 import { ReactComponent as Hero } from '../assets/logo/login-hero-2.svg';
-
-interface StyledNavLinkProps {
-  logo?: boolean;
-  join?: boolean;
-  signIn?: boolean;
-}
+import { IStyledNavLink } from '../interfaces';
 
 export const Container = styled.div`
   display: flex;
@@ -28,7 +23,7 @@ export const Nav = styled.nav`
   }
 `;
 
-export const StyledNavLink = styled(Link)<StyledNavLinkProps>`
+export const StyledNavLink = styled(Link)<IStyledNavLink>`
   font-weight: 600;
   text-decoration: none;
   padding: ${({ logo }) => (!logo ? '0.5em 1.5em 0.7em' : '0em')};

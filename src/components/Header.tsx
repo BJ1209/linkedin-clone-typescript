@@ -6,9 +6,11 @@ import {
   Left,
   LinkedInLogo,
   NavBar,
+  NavbarRight,
   NavItem,
   SearchComp,
   SearchIcon,
+  SignOut,
   Span,
 } from '../styles/Header.style';
 import { ReactComponent as HomeIcon } from '../assets/logo/nav-home.svg';
@@ -23,20 +25,20 @@ import { Link } from 'react-router-dom';
 import Avatar from './Avatar';
 
 const NavData = [
-  { title: 'Home', Icon: HomeIcon, to: '/home' },
-  { title: 'My Network', Icon: NetworkIcon, to: '' },
-  { title: 'Jobs', Icon: JobsIcon, to: '' },
-  { title: 'Messaging', Icon: MessageIcon, to: '' },
-  { title: 'Notifications', Icon: NotificationIcon, to: '' },
+  { title: 'Home', Icon: HomeIcon, to: '#' },
+  { title: 'My Network', Icon: NetworkIcon, to: '#' },
+  { title: 'Jobs', Icon: JobsIcon, to: '#' },
+  { title: 'Messaging', Icon: MessageIcon, to: '#' },
+  { title: 'Notifications', Icon: NotificationIcon, to: '#' },
 ];
 
 const Header: FC = () => {
   const [input, setInput] = useState<string>('');
   const [show, setShow] = useState<boolean>(false);
 
-  const changeHandler: ChangeEventHandler<HTMLInputElement> = (e) => setInput(e.target.value);
+  const changeHandler: ChangeEventHandler<HTMLInputElement> = (e): void => setInput(e.target.value);
 
-  const submitHandler: FormEventHandler<HTMLFormElement> = (e) => {
+  const submitHandler: FormEventHandler<HTMLFormElement> = (e): void => {
     e.preventDefault();
   };
 
@@ -73,26 +75,29 @@ const Header: FC = () => {
             <Span>{title}</Span>
           </NavItem>
         ))}
-        <NavItem to="">
-          <Avatar
-            src="https://media-exp1.licdn.com/dms/image/C5603AQEyv-4vAmS4jg/profile-displayphoto-shrink_100_100/0/1614940231293?e=1625702400&v=beta&t=BziNPlRaH_eVWoCPozz0yGJFadTmMXaXcVdjjNY9ifg"
-            style={{ height: 28, width: 28 }}
-          />
-          <div>
-            <Span>Me</Span>
-            <DownIcon />
-          </div>
-        </NavItem>
-        <NavItem to="">
-          <WorkIcon />
-          <div>
-            <Span>Work</Span>
-            <DownIcon />
-          </div>
-        </NavItem>
-        <NavItem to="">
-          <p>Try Premium Free for 1 Month</p>{' '}
-        </NavItem>
+        <NavbarRight>
+          <NavItem to="" user>
+            <Avatar
+              src="https://media-exp1.licdn.com/dms/image/C5603AQEyv-4vAmS4jg/profile-displayphoto-shrink_100_100/0/1614940231293?e=1625702400&v=beta&t=BziNPlRaH_eVWoCPozz0yGJFadTmMXaXcVdjjNY9ifg"
+              style={{ height: 28, width: 28 }}
+            />
+            <div>
+              <Span>Me</Span>
+              <DownIcon />
+            </div>
+            <SignOut>sign-out</SignOut>
+          </NavItem>
+          <NavItem to="">
+            <WorkIcon />
+            <div>
+              <Span>Work</Span>
+              <DownIcon />
+            </div>
+          </NavItem>
+          <NavItem to="">
+            <p>Try Premium Free for 1 Month</p>{' '}
+          </NavItem>
+        </NavbarRight>
       </NavBar>
     </Container>
   );

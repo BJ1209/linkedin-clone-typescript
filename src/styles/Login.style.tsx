@@ -104,7 +104,6 @@ export const LoginHero = styled(Hero)`
   object-fit: contain;
   height: 35em;
   width: 35em;
-  z-index: -1;
   margin-right: 4em;
 
   @media (max-width: 768px) {

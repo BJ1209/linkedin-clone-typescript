@@ -7,6 +7,7 @@ export const Img = styled.img`
   height: 45px;
   width: 45px;
   border-radius: 50%;
+  overflow: hidden;
 `;
 export const Container = styled.div`
   padding: 0.35em 13em;
@@ -28,6 +29,9 @@ export const Left = styled.div`
   @media (max-width: 992px) {
     flex-basis: auto;
   }
+  @media (max-width: 600px) {
+    flex: 1;
+  }
 `;
 
 export const LinkedInLogo = styled(HomeLogo)`
@@ -45,6 +49,9 @@ export const Form = styled.form`
   position: relative;
   @media (max-width: 992px) {
     display: none;
+  }
+  @media (max-width: 600px) {
+    display: flex;
   }
 `;
 export const SearchIcon = styled(Search)<{ absolute?: boolean }>`
@@ -66,6 +73,9 @@ export const Input = styled.input`
   &:focus-within {
     width: 100%;
   }
+  @media (max-width: 600px) {
+    width: 100%;
+  }
 `;
 export const NavBar = styled.nav`
   flex-basis: 70%;
@@ -74,18 +84,58 @@ export const NavBar = styled.nav`
   align-items: center;
   & > * + * {
     margin-left: 2em;
+    @media (max-width: 600px) {
+      margin-left: 1em;
+    }
   }
-
   @media (max-width: 992px) {
     flex: 1;
   }
+  @media (max-width: 600px) {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    padding: 0.5em 1em;
+    justify-content: space-evenly;
+    border-top: 1px solid lightgray;
+    background: #fff;
+    z-index: 10;
+  }
 `;
-export const NavItem = styled(NavLink)`
+export const SignOut = styled.span`
+  position: absolute;
+  bottom: -32px;
+  font-size: 0.85rem;
+  padding: 0.5em 1em 0.6em;
+  background: white;
+  border-radius: 6px;
+  white-space: nowrap;
+  cursor: pointer;
+  color: #2977c9;
+  font-weight: 500;
+  pointer-events: none;
+  opacity: 0;
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+export const NavItem = styled(NavLink)<{ user?: boolean }>`
+  position: relative;
   text-decoration: none;
   color: inherit;
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  &:hover {
+    ${SignOut} {
+      pointer-events: ${({ user }) => (user ? 'all' : 'none')};
+      opacity: ${({ user }) => (user ? 1 : 0)};
+    }
+  }
+
   & > p,
   & > div {
     font-size: 0.75rem;
@@ -113,7 +163,7 @@ export const SearchComp = styled.div`
   margin-left: 0.5em;
   cursor: pointer;
 
-  @media (max-width: 992px) {
+  @media (min-width: 600px) and (max-width: 992px) {
     display: flex;
   }
 `;
@@ -121,6 +171,20 @@ export const SearchComp = styled.div`
 export const Span = styled.span`
   font-size: 0.75rem;
   @media (max-width: 768px) {
+    display: none;
+  }
+  @media (max-width: 600px) {
+    display: block;
+  }
+`;
+
+export const NavbarRight = styled.div`
+  display: flex;
+  align-items: center;
+  & > * + * {
+    margin-left: 2em;
+  }
+  @media (max-width: 600px) {
     display: none;
   }
 `;

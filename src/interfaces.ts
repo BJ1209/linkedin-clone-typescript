@@ -3,3 +3,9 @@ export interface IStyledNavLink {
   join?: boolean;
   signIn?: boolean;
 }
+
+export interface INews{
+  title: string;
+  publishedAt: string;
+  author: string;
+}

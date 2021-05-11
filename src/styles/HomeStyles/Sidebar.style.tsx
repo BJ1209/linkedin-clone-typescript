@@ -39,12 +39,22 @@ export const Card = styled.div<{ link?: boolean }>`
   border-radius: 6px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
   padding: 0em;
-  }
 
   /* p tag in Connection component having link prop */
   & > ${Connections} > p {
     text-align: ${({ link }) => (link ? 'center' : 'left')};
     color: ${({ link }) => (link ? 'rgba(0,0,0,0.55)' : 'inherit')};
+  }
+
+  & > span {
+    padding: 1em 0.8em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    & > h3 {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
   }
 `;
 

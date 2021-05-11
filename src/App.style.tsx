@@ -10,7 +10,7 @@ body,html{
 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 body{
-  overflow: hidden;
+  overflow-y: scroll;
 }
 `;
 

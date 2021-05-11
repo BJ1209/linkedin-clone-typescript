@@ -2,15 +2,8 @@ import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 import { ReactComponent as HomeLogo } from '../assets/logo/home-logo.svg';
 import { ReactComponent as Search } from '../assets/logo/search-icon.svg';
-
-export const Img = styled.img`
-  height: 45px;
-  width: 45px;
-  border-radius: 50%;
-  overflow: hidden;
-`;
 export const Container = styled.div`
-  padding: 0.35em 13em;
+  padding: 0.2em 12em;
   display: flex;
   align-items: center;
   background: #fff;
@@ -37,8 +30,8 @@ export const Left = styled.div`
 export const LinkedInLogo = styled(HomeLogo)`
   margin-right: 0.5em;
   object-fit: contain;
-  height: 2.5em;
-  width: 2.5em;
+  height: 2.3em;
+  width: 2.3em;
   @media (max-width: 1200px) {
     height: 2.1em;
     width: 2.1em;

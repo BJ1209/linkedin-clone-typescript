@@ -1,6 +1,6 @@
 import { Route, Switch } from 'react-router';
 import { AppContainer, GlobalStyles } from './App.style';
-import Home from './components/Home';
+import HomeScreen from './components/Home/HomeScreen';
 
 import Login from './components/Login';
 
@@ -10,7 +10,7 @@ function App() {
       <GlobalStyles />
       <Switch>
         <Route path="/home">
-          <Home />
+          <HomeScreen />
         </Route>
         <Route path="/">
           <Login />

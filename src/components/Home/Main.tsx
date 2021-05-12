@@ -10,6 +10,7 @@ import {
   Article,
 } from '../../styles/HomeStyles/Main.style';
 import Avatar from '../Avatar';
+import Post from './Post';
 
 const Main: FC = () => {
   return (
@@ -42,6 +43,7 @@ const Main: FC = () => {
           </PostBtn>
         </div>
       </SharePost>
+      <Post />
     </Container>
   );
 };

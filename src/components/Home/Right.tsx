@@ -1,16 +1,26 @@
 import moment from 'moment';
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { INews } from '../../interfaces';
-import { Container, Feed, News } from '../../styles/HomeStyles/Right.style';
+import {
+  Container,
+  Feed,
+  FeedItem,
+  FeedList,
+  FollowBtn,
+  News,
+  UserImage,
+  UserName,
+} from '../../styles/HomeStyles/Right.style';
 import { Card } from '../../styles/HomeStyles/Sidebar.style';
 
-const Right = () => {
+const Right: FC = () => {
   const [news, setNews] = useState<INews[]>([]);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await fetch(
-          'https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=Your api key'
+          'https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=API_KEY'
         );
         const data = await res.json();
         setNews(data?.articles);
@@ -29,12 +39,35 @@ const Right = () => {
           <h3>LinkedIn News</h3>
           <Feed />
         </span>
-        {news.map((item, index) => (
+        {news?.slice(0, 5)?.map((item, index) => (
           <News key={index}>
             <h3>{item?.title}</h3>
             <p>{moment(item?.publishedAt).fromNow()}</p>
           </News>
         ))}
+      </Card>
+      <Card>
+        <span>
+          <h3>Add to your feed</h3>
+          <Feed />
+        </span>
+        <FeedList>
+          <FeedItem>
+            <UserImage />
+            <div>
+              <UserName>#linkedIn</UserName>
+              <FollowBtn>Follow</FollowBtn>
+            </div>
+          </FeedItem>
+          <FeedItem>
+            <UserImage />
+            <div>
+              <UserName>#video</UserName>
+              <FollowBtn>Follow</FollowBtn>
+            </div>
+          </FeedItem>
+          <p>view all recommendations</p>
+        </FeedList>
       </Card>
     </Container>
   );

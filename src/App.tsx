@@ -1,10 +1,11 @@
+import { FC } from 'react';
 import { Route, Switch } from 'react-router';
 import { AppContainer, GlobalStyles } from './App.style';
 import HomeScreen from './components/Home/HomeScreen';
 
 import Login from './components/Login';
 
-function App() {
+const App: FC = () => {
   return (
     <AppContainer>
       <GlobalStyles />
@@ -18,6 +19,6 @@ function App() {
       </Switch>
     </AppContainer>
   );
-}
+};
 
 export default App;

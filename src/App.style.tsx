@@ -10,11 +10,12 @@ body,html{
 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 body{
-  overflow-y: scroll;
+  overflow: hidden;
 }
 `;
 
 export const AppContainer = styled.div`
   background: #f3f2ef;
   height: 100vh;
+  overflow-y: scroll;
 `;

@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Bg,
@@ -12,7 +13,7 @@ import {
 } from '../../styles/HomeStyles/Sidebar.style';
 import Avatar from '../Avatar';
 
-const Sidebar = () => {
+const Sidebar: FC = () => {
   return (
     <Container>
       <Card>

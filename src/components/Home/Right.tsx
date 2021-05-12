@@ -20,7 +20,7 @@ const Right: FC = () => {
     const fetchData = async () => {
       try {
         const res = await fetch(
-          'https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=API_KEY'
+          'https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=YOUR_API'
         );
         const data = await res.json();
         setNews(data?.articles);

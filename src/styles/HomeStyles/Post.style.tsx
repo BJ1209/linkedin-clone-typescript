@@ -53,14 +53,12 @@ export const PostImage = styled.img`
 `;
 export const PostBottom = styled.div`
   padding: 0.5em 1em;
-  & > p {
-    border-bottom: 1px solid lightgray;
-    padding-bottom: 0.5em;
-  }
   & > div {
     display: flex;
+    justify-content: flex-start;
     padding-top: 0.5em;
     & > button {
+      flex: none;
       justify-content: center;
     }
   }
@@ -70,4 +68,17 @@ export const Like = styled(LikeIcon)`
 `;
 export const Comment = styled(CommentIcon)`
   fill: rgba(0, 0, 0, 0.5);
+`;
+export const Reactions = styled.button`
+  margin-bottom: 0.5em;
+  display: flex;
+  align-items: center;
+  border: none;
+  outline: none;
+  background: transparent;
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.5);
+  & > span {
+    margin: 0 0.25em;
+  }
 `;

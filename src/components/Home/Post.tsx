@@ -8,6 +8,7 @@ import {
   PostDescription,
   PostImage,
   PostTop,
+  Reactions,
 } from '../../styles/HomeStyles/Post.style';
 import Avatar from '../Avatar';
 
@@ -56,7 +57,16 @@ const Post = () => {
         alt="post"
       />
       <PostBottom>
-        <p>3</p>
+        <Reactions>
+          <img
+            src="https://static-exp1.licdn.com/sc/h/d310t2g24pvdy4pt1jkedo4yb"
+            alt="like"
+            draggable={false}
+          />
+          <span>3</span>
+          <span>·</span>
+          <p>3 comments</p>
+        </Reactions>
         <div>
           <PostBtn>
             <Like />

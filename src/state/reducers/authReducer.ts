@@ -10,15 +10,21 @@ export interface UserState {
   user: IUser | null;
 }
 
-export type Action = {
+export type LoginAction = {
   type: string;
-  paylaod?: IUser;
+  paylaod: IUser;
+};
+export type LogoutAction = {
+  type: string;
 };
 
 const initialState = {
-  user: null,
+  user: sessionStorage.getItem('lc-user-profile')
+    ? JSON.parse(sessionStorage['lc-user-profile'])
+    : null,
 };
-export const userReducer = (state: UserState = initialState, action: Action) => {
+
+const userReducer = (state: UserState = initialState, action: LoginAction): UserState => {
   switch (action.type) {
     case actionType.SET_USER_LOGIN: {
       return {
@@ -36,3 +42,5 @@ export const userReducer = (state: UserState = initialState, action: Action) => 
       return state;
   }
 };
+
+export default userReducer;

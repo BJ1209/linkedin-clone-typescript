@@ -23,6 +23,9 @@ import { ReactComponent as DownIcon } from '../assets/logo/down-icon.svg';
 import { ReactComponent as CrossIcon } from '../assets/logo/close.svg';
 import { Link } from 'react-router-dom';
 import Avatar from './Avatar';
+import { auth } from '../config/firebase';
+import { useDispatch } from 'react-redux';
+import { logout } from '../state/action-creators/auth.action';
 
 const NavData = [
   { title: 'Home', Icon: HomeIcon, to: '#' },
@@ -35,6 +38,7 @@ const NavData = [
 const Header: FC = () => {
   const [input, setInput] = useState<string>('');
   const [show, setShow] = useState<boolean>(false);
+  const dispatch = useDispatch();
 
   const changeHandler: ChangeEventHandler<HTMLInputElement> = (e): void => setInput(e.target.value);
 
@@ -42,10 +46,19 @@ const Header: FC = () => {
     e.preventDefault();
   };
 
+  const logoutHandler = (): void => {
+    auth
+      .signOut()
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err.message));
+    sessionStorage.clear();
+    dispatch(logout());
+  };
+
   return (
     <Container>
       <Left style={{ flexBasis: show ? '100%' : '' }}>
-        <Link to="/home">
+        <Link to="/">
           <LinkedInLogo />
         </Link>
         <Form onSubmit={submitHandler} style={{ display: show ? 'flex' : '' }}>
@@ -85,7 +98,7 @@ const Header: FC = () => {
               <Span>Me</Span>
               <DownIcon />
             </div>
-            <SignOut>sign-out</SignOut>
+            <SignOut onClick={logoutHandler}>sign-out</SignOut>
           </NavItem>
           <NavItem to="">
             <WorkIcon />

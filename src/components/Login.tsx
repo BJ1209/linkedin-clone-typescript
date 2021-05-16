@@ -1,5 +1,5 @@
-import { FC } from 'react';
-import { useDispatch } from 'react-redux';
+import { FC, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { auth, GoogleProvider } from '../config/firebase';
 import { login } from '../state/action-creators/auth.action';
@@ -17,10 +17,16 @@ import {
   StyledNavLink,
   Title,
 } from '../styles/Login.style';
+import { State } from '../state';
 
 const Login: FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const user = useSelector((state: State) => state.auth.user);
+
+  useEffect(() => {
+    user && history.replace('/');
+  }, [user, history]);
 
   const loginHandler = async () => {
     try {
@@ -31,11 +37,11 @@ const Login: FC = () => {
         uid: user.user?.uid,
         photoURL: user.user?.photoURL,
       };
+      sessionStorage.setItem('lc-user-profile', JSON.stringify(profile));
       dispatch(login(profile));
     } catch (error) {
       alert(error.message);
     }
-    history.push('/home');
   };
 
   return (

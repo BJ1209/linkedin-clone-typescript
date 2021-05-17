@@ -1,4 +1,6 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { State } from '../../state';
 import {
   Container,
   SharePost,
@@ -10,19 +12,21 @@ import {
   Article,
 } from '../../styles/HomeStyles/Main.style';
 import Avatar from '../Avatar';
+import Modal from '../Modal';
 import Post from './Post';
 
 const Main: FC = () => {
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const user = useSelector((state: State) => state.auth.user);
+
+  const openModal = () => setShowModal(true);
+
   return (
     <Container>
       <SharePost>
         <div>
-          <Avatar
-            src="https://media-exp1.licdn.com/dms/image/C5603AQGMgLni0Z8rQg/profile-displayphoto-shrink_100_100/0/1620544555804?e=1626307200&v=beta&t=nEtprJ8rJQUfSuVXaRoM29tf6t0ajZH2_J63WnJ9x7o"
-            alt="profile picture"
-            style={{ marginRight: 10 }}
-          />
-          <PostBtnTop>Start a post</PostBtnTop>
+          <Avatar src={user?.photoURL!} alt="profile picture" style={{ marginRight: 10 }} />
+          <PostBtnTop onClick={openModal}>Start a post</PostBtnTop>
         </div>
         <div>
           <PostBtn>
@@ -44,6 +48,7 @@ const Main: FC = () => {
         </div>
       </SharePost>
       <Post />
+      <Modal showModal={showModal} closeHandler={() => setShowModal(false)} />
     </Container>
   );
 };

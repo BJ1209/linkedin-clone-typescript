@@ -1,5 +1,7 @@
 import { FC } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { State } from '../../state';
 import {
   Bg,
   Card,
@@ -14,13 +16,15 @@ import {
 import Avatar from '../Avatar';
 
 const Sidebar: FC = () => {
+  const user = useSelector((state: State) => state.auth.user);
+
   return (
     <Container>
       <Card>
         <Identity>
           <Bg />
           <Avatar
-            src="https://media-exp1.licdn.com/dms/image/C5603AQGMgLni0Z8rQg/profile-displayphoto-shrink_100_100/0/1620544555804?e=1626307200&v=beta&t=nEtprJ8rJQUfSuVXaRoM29tf6t0ajZH2_J63WnJ9x7o"
+            src={user?.photoURL!}
             style={{
               width: 70,
               height: 70,
@@ -29,7 +33,7 @@ const Sidebar: FC = () => {
               top: '20px',
             }}
           />
-          <h3>Bikram Jeet Singh</h3>
+          <h3>{user?.displayName}</h3>
         </Identity>
         <Hr />
         <Connections>

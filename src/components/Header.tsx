@@ -24,8 +24,9 @@ import { ReactComponent as CrossIcon } from '../assets/logo/close.svg';
 import { Link } from 'react-router-dom';
 import Avatar from './Avatar';
 import { auth } from '../config/firebase';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../state/action-creators/auth.action';
+import { State } from '../state';
 
 const NavData = [
   { title: 'Home', Icon: HomeIcon, to: '#' },
@@ -39,6 +40,7 @@ const Header: FC = () => {
   const [input, setInput] = useState<string>('');
   const [show, setShow] = useState<boolean>(false);
   const dispatch = useDispatch();
+  const user = useSelector((state: State) => state.auth.user);
 
   const changeHandler: ChangeEventHandler<HTMLInputElement> = (e): void => setInput(e.target.value);
 
@@ -90,10 +92,7 @@ const Header: FC = () => {
         ))}
         <NavbarRight>
           <NavItem to="" user>
-            <Avatar
-              src="https://media-exp1.licdn.com/dms/image/C5603AQEyv-4vAmS4jg/profile-displayphoto-shrink_100_100/0/1614940231293?e=1625702400&v=beta&t=BziNPlRaH_eVWoCPozz0yGJFadTmMXaXcVdjjNY9ifg"
-              style={{ height: 28, width: 28 }}
-            />
+            <Avatar src={user?.photoURL!} style={{ height: 28, width: 28 }} />
             <div>
               <Span>Me</Span>
               <DownIcon />

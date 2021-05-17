@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import styled from 'styled-components';
 interface AvatarProps {
-  src: string;
+  src: string | undefined;
   style?: object;
   alt?: string;
   draggable?: boolean;

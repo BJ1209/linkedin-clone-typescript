@@ -1,5 +1,7 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import db from '../../config/firebase';
+import { IPosts } from '../../interfaces';
 import { State } from '../../state';
 import {
   Container,
@@ -17,9 +19,25 @@ import Post from './Post';
 
 const Main: FC = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
-  const user = useSelector((state: State) => state.auth.user);
+  const [posts, setPosts] = useState<IPosts[]>([]);
 
+  const user = useSelector((state: State) => state.auth.user);
   const openModal = () => setShowModal(true);
+
+  useEffect(() => {
+    db.collection('posts')
+      .orderBy('timestamp', 'desc')
+      .onSnapshot((snapshot) =>
+        setPosts(
+          snapshot.docs.map((doc) => {
+            return {
+              id: doc.id,
+              data: doc.data(),
+            };
+          })
+        )
+      );
+  }, []);
 
   return (
     <Container>
@@ -47,7 +65,9 @@ const Main: FC = () => {
           </PostBtn>
         </div>
       </SharePost>
-      <Post />
+      {posts?.map((post) => (
+        <Post key={post.id} id={post.id} data={post.data} />
+      ))}
       <Modal showModal={showModal} closeHandler={() => setShowModal(false)} />
     </Container>
   );

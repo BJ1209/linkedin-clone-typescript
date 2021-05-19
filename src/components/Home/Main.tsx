@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import db from '../../config/firebase';
-import { IPosts } from '../../interfaces';
+import { IFirebaseData } from '../../interfaces';
 import { State } from '../../state';
 import {
   Container,
@@ -19,7 +19,7 @@ import Post from './Post';
 
 const Main: FC = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [posts, setPosts] = useState<IPosts[]>([]);
+  const [posts, setPosts] = useState<IFirebaseData[]>([]);
 
   const user = useSelector((state: State) => state.auth.user);
   const openModal = () => setShowModal(true);

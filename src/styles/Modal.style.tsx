@@ -15,7 +15,7 @@ const Container = styled.div`
   place-items: center;
   background-color: rgba(0, 0, 0, 0.75);
   z-index: 1000;
-  animation: fadeIn 150ms ease-in;
+  animation: fadeIn 150ms ease-in forwards;
 
   @keyframes fadeIn {
     from {

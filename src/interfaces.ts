@@ -12,7 +12,7 @@ export interface INews {
   author: string;
 }
 
-export interface IPosts {
+export interface IFirebaseData {
   id: string;
   data: firebase.firestore.DocumentData;
 }

@@ -19,6 +19,7 @@ import {
   FileInput,
 } from '../styles/Modal.style';
 import Avatar from './Avatar';
+import { ClipLoader } from 'react-spinners';
 
 interface IModal {
   showModal: boolean;
@@ -38,7 +39,6 @@ const Modal: FC<IModal> = ({ showModal, closeHandler }) => {
   useEffect(() => {
     const handleClick = (e: globalThis.MouseEvent) => {
       if (e.target === ModalRef.current) {
-        console.log(globalThis);
         closeHandler();
       }
     };
@@ -101,6 +101,7 @@ const Modal: FC<IModal> = ({ showModal, closeHandler }) => {
                 mediaType: mediaType,
                 username: user?.displayName,
                 profilePic: user?.photoURL,
+                userEmail: user?.email,
               });
             });
           setLoading(false);
@@ -116,6 +117,7 @@ const Modal: FC<IModal> = ({ showModal, closeHandler }) => {
         postDescription: input,
         username: user?.displayName,
         profilePic: user?.photoURL,
+        userEmail: user?.email,
       });
       setInput('');
       closeHandler();
@@ -153,10 +155,12 @@ const Modal: FC<IModal> = ({ showModal, closeHandler }) => {
                 <Video />
               </MediaBtn>
             </div>
-            {!loading && (
+            {!loading ? (
               <Btn ref={btnRef} disabled={!input} type="submit">
                 Post
               </Btn>
+            ) : (
+              <ClipLoader loading={loading} size={35} color="rgba(0,0,0,0.5)" />
             )}
           </Footer>
         </Form>

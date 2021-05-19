@@ -1,13 +1,17 @@
 import styled from 'styled-components';
 import { Card } from './Sidebar.style';
-import { ReactComponent as MoreIcon } from '../../assets/logo/more.svg';
+import { ReactComponent as TrashIcon } from '../../assets/logo/trash.svg';
 import { ReactComponent as LikeIcon } from '../../assets/logo/like.svg';
 import { ReactComponent as CommentIcon } from '../../assets/logo/comment.svg';
 
 export const PostContainer = styled(Card)`
   overflow: hidden;
 `;
+export const Trash = styled(TrashIcon)`
+  fill: rgba(0, 0, 0, 0.5);
+`;
 export const PostTop = styled.div`
+  position: relative;
   padding: 0.75em 1em 0;
   display: flex;
   align-items: center;
@@ -26,9 +30,11 @@ export const PostTop = styled.div`
       font-size: 0.75rem;
     }
   }
-  & > span {
-    width: 40px;
-    height: 40px;
+  & > button {
+    border: none;
+    outline: none;
+    width: 45px;
+    height: 45px;
     cursor: pointer;
     background: transparent;
     display: grid;
@@ -40,9 +46,7 @@ export const PostTop = styled.div`
     }
   }
 `;
-export const More = styled(MoreIcon)`
-  fill: rgba(0, 0, 0, 0.5);
-`;
+
 export const PostDescription = styled.p`
   padding: 1em;
   font-size: 0.9rem;
@@ -52,7 +56,7 @@ export const PostImage = styled.img`
   height: 100%;
 `;
 export const PostBottom = styled.div`
-  padding: 0.5em 1em;
+  padding: 0.5em 1em 0.8em;
   & > div {
     display: flex;
     justify-content: flex-start;
@@ -66,7 +70,7 @@ export const PostBottom = styled.div`
 export const Like = styled(LikeIcon)`
   fill: rgba(0, 0, 0, 0.5);
 `;
-export const Comment = styled(CommentIcon)`
+export const CommentLogo = styled(CommentIcon)`
   fill: rgba(0, 0, 0, 0.5);
 `;
 export const Reactions = styled.button`
@@ -80,5 +84,29 @@ export const Reactions = styled.button`
   color: rgba(0, 0, 0, 0.5);
   & > span {
     margin: 0 0.25em;
+  }
+`;
+
+export const Comments = styled.div`
+  display: flex;
+  flex-direction: column;
+  & > * + * {
+    margin-top: 1em;
+  }
+`;
+export const CommentForm = styled.form`
+  padding: 0.5em 0;
+  display: flex;
+  input {
+    margin-left: 0.5em;
+    flex: 1;
+    padding: 0.5em 1em;
+    border: 1px solid lightgray;
+    outline: none;
+    font-size: 1rem;
+    border-radius: 50px;
+  }
+  button {
+    display: none;
   }
 `;

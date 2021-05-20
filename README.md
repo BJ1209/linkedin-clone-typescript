@@ -1,46 +1,101 @@
-# Getting Started with Create React App
+<br>
+<br>
+<div align="center">
+  <img alt="Home-Image" src="./src/assets/images/linked-in-logo.png" width="50%" />
+</div>
+<br>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<p 
+align="center" 
+style="font-size:2rem; letter-spacing: 4px;">
+Using 
+<br/> ReactJs, TypeScript, Firebase  and styled-components
+<br />
+Fully Responsive
+</p>
+<br>
 
-## Available Scripts
+## Packages Used:
+<ul>
+ <li>create-react-app - Used as UI Library with typescript as a template.</li>
+ <li>redux - Used for the state management in the app.</li>
+ <li>firebase - Used for the the database and deployment.</li>
+ <li>react-router-rom - Used as a routing library.</li>
+ <li>styled-components - Used as styling the app.</li>
+ <li>react-spinners - Used for the loader components</li>
+ <li>moment - Used for the time-ago functionality.</li>
+</ul>
+<br>
 
-In the project directory, you can run:
+## Features
+   1. Google Authentication
+   2. No-SQL Database - Firestore
+   3. Storage for image/video 
+   4. Create, Read and Delete - posts & comments
+   5. Like a post
 
-### `npm start`
+<br>
+## Preview of the Project: 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+<div align="center">
+  <h3>1. Login-Screen</h3>
+  <img alt="Home-Image" src="./src/assets/images/1-Login-Screen.png" width="80%" />
+</div>
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+<br>
 
-### `npm test`
+<div align="center">
+  <h3>2. Home-Screen</h3>
+  <img alt="Home-Image" src="./src/assets/images/2-Home-Screen.png" width="80%" />
+</div>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<br>
 
-### `npm run build`
+<div align="center">
+  <h3>3. Create-post</h3>
+  <img alt="Home-Image" src="./src/assets/images/3-Create-Post.png" width="80%" />
+</div>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<br>
+<br>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Firebase installation
+Sign up and create a firebase project *[here](https://firebase.google.com/)*. Click on the web icon, and then go to project settings and get the firebase config and paste in the *src/config/firebase.ts*
+<br>
+Set up the authentication, firestore and hosting in firebase.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<br>
 
-### `npm run eject`
+## Installation and set-up
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+1. Install all the dependencies
+    
+    ```
+    npm install
+     ```  
+2. Start the development server
+    
+    ```
+   npm start
+    ```
+3. Login into firebase
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+    ```
+    firebase login
+    ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Production Build
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+1. Generate the production build
+   
+   ```
+   firebase init
+   ``` 
+   ```
+   npm run build
+   ``` 
+2. Deploy the App
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+    ```
+    firebase deploy
+    ```

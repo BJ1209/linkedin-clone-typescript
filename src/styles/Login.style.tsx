@@ -159,7 +159,8 @@ export const Button = styled.button`
     padding: 1em 2em;
   }
 
-  &:hover {
+  &:hover,
+  &:focus {
     outline-width: 3px;
     outline-offset: -3px;
     background: rgb(245, 245, 245);

@@ -73,17 +73,25 @@ export const Like = styled(LikeIcon)`
 export const CommentLogo = styled(CommentIcon)`
   fill: rgba(0, 0, 0, 0.5);
 `;
-export const Reactions = styled.button`
+export const Reactions = styled.div`
   margin-bottom: 0.5em;
   display: flex;
   align-items: center;
-  border: none;
-  outline: none;
-  background: transparent;
-  cursor: pointer;
   color: rgba(0, 0, 0, 0.5);
+  font-size: 0.8rem;
   & > span {
     margin: 0 0.25em;
+  }
+  & > button {
+    border: none;
+    outline: none;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    img {
+      margin-right: 0.5em;
+    }
   }
 `;
 

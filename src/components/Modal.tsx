@@ -36,6 +36,7 @@ const Modal: FC<IModal> = ({ showModal, closeHandler }) => {
   const fileRef = useRef<HTMLInputElement>(null);
   const btnRef = useRef<HTMLButtonElement>(null);
 
+  // modal closes if we click outside the modal
   useEffect(() => {
     const handleClick = (e: globalThis.MouseEvent) => {
       if (e.target === ModalRef.current) {
@@ -46,6 +47,7 @@ const Modal: FC<IModal> = ({ showModal, closeHandler }) => {
     return () => window.removeEventListener('click', handleClick);
   }, [closeHandler]);
 
+  // modal closes on pressing Escape
   useEffect(() => {
     const keyPressHandler = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -56,22 +58,28 @@ const Modal: FC<IModal> = ({ showModal, closeHandler }) => {
     return () => window.removeEventListener('keydown', keyPressHandler);
   }, [closeHandler]);
 
+  // accepts only images in the file upload
   const photoHandler = () => {
     fileRef.current?.setAttribute('accept', '.jpg,.jpeg,.png');
     setMediaType('image');
     fileRef.current?.click();
   };
+
+  // accepts only videos in the file upload
   const videoHandler = () => {
     fileRef.current?.setAttribute('accept', '.mpeg, .mp4');
     setMediaType('video');
     fileRef.current?.click();
   };
+
+  // Handle the upload photo/video
   const fileHandler = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files![0]) {
       setMedia(e.target.files![0]);
     }
   };
 
+  // upload post on click
   const submitHandler = (e: FormEvent) => {
     e.preventDefault();
 

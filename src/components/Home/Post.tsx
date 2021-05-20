@@ -1,5 +1,10 @@
 import { ChangeEvent, FC, FormEvent, useEffect, useRef, useState } from 'react';
-import { PostBtn } from '../../styles/HomeStyles/Main.style';
+import { useSelector } from 'react-redux';
+import Avatar from '../Avatar';
+import firebase from 'firebase';
+import moment from 'moment';
+import db from '../../config/firebase';
+import Comment from '../Comment';
 import {
   CommentLogo,
   Like,
@@ -13,14 +18,10 @@ import {
   CommentForm,
   Comments,
 } from '../../styles/HomeStyles/Post.style';
-import Avatar from '../Avatar';
-import firebase from 'firebase';
-import moment from 'moment';
-import db from '../../config/firebase';
-import Comment from '../Comment';
-import { useSelector } from 'react-redux';
+import { PostBtn } from '../../styles/HomeStyles/Main.style';
 import { State } from '../../state';
 import { IFirebaseData } from '../../interfaces';
+
 export interface IPostProps {
   id: string;
   data: firebase.firestore.DocumentData;
@@ -28,10 +29,13 @@ export interface IPostProps {
 
 const Post: FC<IPostProps> = ({ id, data }) => {
   const user = useSelector((state: State) => state.auth.user);
+  const [hasLiked, setHasLiked] = useState<boolean>(false);
+  const [likesLength, setLikesLength] = useState<number>(0);
   const [comments, setComments] = useState<IFirebaseData[]>([]);
   const [input, setInput] = useState<string>('');
   const commentRef = useRef<HTMLInputElement>(null);
 
+  //Getting all the comments for a particular post
   useEffect(() => {
     db.collection('posts')
       .doc(id)
@@ -47,6 +51,20 @@ const Post: FC<IPostProps> = ({ id, data }) => {
       );
   }, [id]);
 
+  // Getting the  likes number and checking is the post is liked by the user
+  useEffect(() => {
+    db.collection('posts')
+      .doc(id)
+      .collection('likes')
+      .onSnapshot((snapshot) => {
+        snapshot.docs.forEach((doc) =>
+          doc.data().userEmail === user?.email ? setHasLiked(true) : setHasLiked(false)
+        );
+        setLikesLength(snapshot.docs.length);
+      });
+  }, [id]);
+
+  // Delete a post
   const deletePost = () => {
     db.collection('posts')
       .doc(id)
@@ -55,6 +73,36 @@ const Post: FC<IPostProps> = ({ id, data }) => {
       .catch((err) => alert(err.message));
   };
 
+  // like a post
+  const likePost = () => {
+    !hasLiked
+      ? db
+          .collection('posts')
+          .doc(id)
+          .collection('likes')
+          .add({
+            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+            username: user?.displayName,
+            profilePic: user?.photoURL,
+            userEmail: user?.email,
+          })
+          .then((res) => setHasLiked(true))
+          .catch((err) => console.log(err.message))
+      : db
+          .collection('posts')
+          .doc(id)
+          .collection('likes')
+          .get()
+          .then((res) => {
+            res.docs.forEach(
+              (element) => element.data().userEmail === user?.email && element.ref.delete()
+            );
+            setHasLiked(false);
+          })
+          .catch((err) => console.log(err.messgae));
+  };
+
+  // post a comment
   const submitComment = (e: FormEvent) => {
     e.preventDefault();
     db.collection('posts').doc(id).collection('comments').add({
@@ -101,19 +149,37 @@ const Post: FC<IPostProps> = ({ id, data }) => {
       {Media}
       <PostBottom>
         <Reactions>
-          <img
-            src="https://static-exp1.licdn.com/sc/h/d310t2g24pvdy4pt1jkedo4yb"
-            alt="like"
-            draggable={false}
-          />
-          <span></span>
-          <span>·</span>
-          <p>{comments?.length} comments</p>
+          {likesLength ? (
+            <button>
+              <img
+                src="https://static-exp1.licdn.com/sc/h/d310t2g24pvdy4pt1jkedo4yb"
+                alt="like"
+                draggable={false}
+              />
+              <span>{likesLength}</span>
+            </button>
+          ) : null}
+          {comments?.length ? (
+            <>
+              <span>·</span>
+              <p>
+                {comments?.length} {comments?.length === 1 ? 'comment' : 'comments'}
+              </p>
+            </>
+          ) : null}
         </Reactions>
         <div>
-          <PostBtn>
-            <Like />
-            <span>Link</span>
+          <PostBtn onClick={likePost}>
+            {hasLiked ? (
+              <img src="https://static-exp1.licdn.com/sc/h/3yew62z57yb4vtsgl0ko7v5pw" />
+            ) : (
+              <Like />
+            )}
+            {
+              <span style={{ color: hasLiked ? '#2977c9' : 'rgba(0,0,0,.5)' }}>
+                {hasLiked ? 'Liked' : 'Like'}
+              </span>
+            }
           </PostBtn>
           <PostBtn onClick={() => commentRef.current?.focus()}>
             <CommentLogo />

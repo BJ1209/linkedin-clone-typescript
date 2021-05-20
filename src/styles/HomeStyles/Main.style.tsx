@@ -52,7 +52,7 @@ export const PostBtn = styled.button`
   border-radius: 4px;
   transition: all 0.1s ease;
   &:hover {
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.08);
   }
   & > span {
     white-space: nowrap;

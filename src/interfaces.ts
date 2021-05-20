@@ -1,4 +1,3 @@
-import { IPostProps } from './components/Home/Post';
 import firebase from 'firebase';
 export interface IStyledNavLink {
   logo?: boolean;

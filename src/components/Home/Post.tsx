@@ -21,6 +21,8 @@ import {
 import { PostBtn } from '../../styles/HomeStyles/Main.style';
 import { State } from '../../state';
 import { IFirebaseData } from '../../interfaces';
+import Modal from '../Modal/Modal';
+import ReactionsModal from '../Modal/ReactionsModal';
 
 export interface IPostProps {
   id: string;
@@ -33,7 +35,12 @@ const Post: FC<IPostProps> = ({ id, data }) => {
   const [likesLength, setLikesLength] = useState<number>(0);
   const [comments, setComments] = useState<IFirebaseData[]>([]);
   const [input, setInput] = useState<string>('');
+  const [showModal, setShowModal] = useState<boolean>(false);
+
   const commentRef = useRef<HTMLInputElement>(null);
+
+  // open a modal
+  const openModal = () => setShowModal(true);
 
   //Getting all the comments for a particular post
   useEffect(() => {
@@ -62,7 +69,7 @@ const Post: FC<IPostProps> = ({ id, data }) => {
         );
         setLikesLength(snapshot.docs.length);
       });
-  }, [id]);
+  }, [id, user?.email]);
 
   // Delete a post
   const deletePost = () => {
@@ -150,7 +157,7 @@ const Post: FC<IPostProps> = ({ id, data }) => {
       <PostBottom>
         <Reactions>
           {likesLength ? (
-            <button>
+            <button onClick={openModal}>
               <img
                 src="https://static-exp1.licdn.com/sc/h/d310t2g24pvdy4pt1jkedo4yb"
                 alt="like"
@@ -171,7 +178,7 @@ const Post: FC<IPostProps> = ({ id, data }) => {
         <div>
           <PostBtn onClick={likePost}>
             {hasLiked ? (
-              <img src="https://static-exp1.licdn.com/sc/h/3yew62z57yb4vtsgl0ko7v5pw" />
+              <img alt="like" src="https://static-exp1.licdn.com/sc/h/3yew62z57yb4vtsgl0ko7v5pw" />
             ) : (
               <Like />
             )}
@@ -202,6 +209,9 @@ const Post: FC<IPostProps> = ({ id, data }) => {
           ))}
         </Comments>
       </PostBottom>
+      <Modal title="Reactions" showModal={showModal} closeHandler={() => setShowModal(false)}>
+        <ReactionsModal postId={id} closeHandler={() => setShowModal(false)} />
+      </Modal>
     </PostContainer>
   );
 };

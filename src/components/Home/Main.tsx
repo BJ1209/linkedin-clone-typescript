@@ -14,7 +14,8 @@ import {
   Article,
 } from '../../styles/HomeStyles/Main.style';
 import Avatar from '../Avatar';
-import Modal from '../Modal';
+import Modal from '../Modal/Modal';
+import PostModal from '../Modal/PostModal';
 import Post from './Post';
 
 const Main: FC = () => {
@@ -43,7 +44,7 @@ const Main: FC = () => {
     <Container>
       <SharePost>
         <div>
-          <Avatar src={user?.photoURL!} alt="profile picture" style={{ marginRight: 10 }} />
+          <Avatar src={user?.photoURL!} alt="profile" style={{ marginRight: 10 }} />
           <PostBtnTop onClick={openModal}>Start a post</PostBtnTop>
         </div>
         <div>
@@ -68,7 +69,9 @@ const Main: FC = () => {
       {posts?.map((post) => (
         <Post key={post.id} id={post.id} data={post.data} />
       ))}
-      <Modal showModal={showModal} closeHandler={() => setShowModal(false)} />
+      <Modal title="Create a post" showModal={showModal} closeHandler={() => setShowModal(false)}>
+        <PostModal closeHandler={() => setShowModal(false)} />
+      </Modal>
     </Container>
   );
 };

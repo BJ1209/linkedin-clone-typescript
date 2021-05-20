@@ -1,62 +1,34 @@
-import { ChangeEvent, FC, FormEvent, useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
-import db, { storage } from '../config/firebase';
-import firebase from 'firebase';
-import { State } from '../state';
 import {
-  Container,
-  Cross,
-  Footer,
-  Header,
-  Form,
-  MediaBtn,
-  ModalWrapper,
-  TextArea,
-  UserInfo,
-  Photo,
-  Video,
   Btn,
   FileInput,
-} from '../styles/Modal.style';
-import Avatar from './Avatar';
+  Footer,
+  Form,
+  MediaBtn,
+  Photo,
+  TextArea,
+  UserInfo,
+  Video,
+} from '../../styles/Modal/PostModal.style';
+import Avatar from '../Avatar';
 import { ClipLoader } from 'react-spinners';
+import { useSelector } from 'react-redux';
+import { State } from '../../state';
+import { ChangeEvent, FC, FormEvent, useRef, useState } from 'react';
+import db, { storage } from '../../config/firebase';
+import firebase from 'firebase';
 
-interface IModal {
-  showModal: boolean;
+interface IPostModal {
   closeHandler(): void;
 }
 
-const Modal: FC<IModal> = ({ showModal, closeHandler }) => {
+const PostModal: FC<IPostModal> = ({ closeHandler }) => {
   const user = useSelector((state: State) => state.auth.user);
   const [input, setInput] = useState<string>('');
   const [media, setMedia] = useState<File | null>(null);
   const [mediaType, setMediaType] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
-  const ModalRef = useRef<HTMLDivElement>(null);
   const fileRef = useRef<HTMLInputElement>(null);
   const btnRef = useRef<HTMLButtonElement>(null);
-
-  // modal closes if we click outside the modal
-  useEffect(() => {
-    const handleClick = (e: globalThis.MouseEvent) => {
-      if (e.target === ModalRef.current) {
-        closeHandler();
-      }
-    };
-    window.addEventListener('click', handleClick);
-    return () => window.removeEventListener('click', handleClick);
-  }, [closeHandler]);
-
-  // modal closes on pressing Escape
-  useEffect(() => {
-    const keyPressHandler = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        closeHandler();
-      }
-    };
-    window.addEventListener('keydown', keyPressHandler);
-    return () => window.removeEventListener('keydown', keyPressHandler);
-  }, [closeHandler]);
 
   // accepts only images in the file upload
   const photoHandler = () => {
@@ -131,50 +103,41 @@ const Modal: FC<IModal> = ({ showModal, closeHandler }) => {
       closeHandler();
     }
   };
-
-  if (!showModal) return null;
-
   return (
-    <Container ref={ModalRef}>
-      <ModalWrapper>
-        <Header>
-          <h3>Create a post</h3>
-          <Cross onClick={closeHandler} />
-        </Header>
-        <Form onSubmit={submitHandler}>
-          <UserInfo>
-            <Avatar src={user?.photoURL!} />
-            <h3>{user?.displayName}</h3>
-          </UserInfo>
-          <TextArea
-            autoFocus
-            value={input}
-            onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setInput(e.target.value)}
-            placeholder="What do you want to talk about?"
-          />
-          <p>{media && media?.name}</p>
-          <Footer>
-            <div>
-              <FileInput ref={fileRef} type="file" accept="" onChange={fileHandler} />
-              <MediaBtn onClick={photoHandler}>
-                <Photo />
-              </MediaBtn>
-              <MediaBtn onClick={videoHandler}>
-                <Video />
-              </MediaBtn>
-            </div>
-            {!loading ? (
-              <Btn ref={btnRef} disabled={!input} type="submit">
-                Post
-              </Btn>
-            ) : (
-              <ClipLoader loading={loading} size={35} color="rgba(0,0,0,0.5)" />
-            )}
-          </Footer>
-        </Form>
-      </ModalWrapper>
-    </Container>
+    <>
+      <Form onSubmit={submitHandler}>
+        <UserInfo>
+          <Avatar src={user?.photoURL!} />
+          <h3>{user?.displayName}</h3>
+        </UserInfo>
+        <TextArea
+          autoFocus
+          value={input}
+          onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setInput(e.target.value)}
+          placeholder="What do you want to talk about?"
+        />
+        <p>{media && media?.name}</p>
+        <Footer>
+          <div>
+            <FileInput ref={fileRef} type="file" accept="" onChange={fileHandler} />
+            <MediaBtn onClick={photoHandler}>
+              <Photo />
+            </MediaBtn>
+            <MediaBtn onClick={videoHandler}>
+              <Video />
+            </MediaBtn>
+          </div>
+          {!loading ? (
+            <Btn ref={btnRef} disabled={!input} type="submit">
+              Post
+            </Btn>
+          ) : (
+            <ClipLoader loading={loading} size={35} color="rgba(0,0,0,0.5)" />
+          )}
+        </Footer>
+      </Form>
+    </>
   );
 };
 
-export default Modal;
+export default PostModal;
